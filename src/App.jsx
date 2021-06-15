@@ -8,10 +8,10 @@ import {
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import NavBar from "./Components/NavBar";
-import Login from "./Pages/Login";
-import Home from "./Pages/Home";
-import Signup from "./Pages/Signup";
+import Header from "./Components/Header/Header";
+import Login from "./Pages/LoginPage";
+import Home from "./Pages/HomePage";
+import Signup from "./Pages/SignupPage";
 
 const UnauthenticatedRoutes = ({ children: Children, ...rest }) => {
   const { isAuth } = useSelector((state) => state.user);
@@ -49,7 +49,7 @@ function App() {
   return (
     <Router>
       <ToastContainer position="bottom-right" />
-      <NavBar />
+      <Header />
       <AppRoutes />
     </Router>
   );
