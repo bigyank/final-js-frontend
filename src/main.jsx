@@ -4,6 +4,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
 
+import "react-toastify/dist/ReactToastify.css";
+
 import store from "./redux/store";
 import App from "./App";
 

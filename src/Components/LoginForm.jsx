@@ -1,6 +1,7 @@
 import React from "react";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 import { Formik, Form, Field } from "formik";
 import { Button, LinearProgress, Box } from "@material-ui/core";
@@ -30,7 +31,14 @@ const LoginForm = () => {
         onSuccess: (data) => {
           dispatch(auth(data));
         },
-        onError: (error) => setSubmitting(false),
+        onError: (error) => {
+          const errMessage =
+            error.response && error.response.data.error
+              ? error.response.data.error.message
+              : error.message;
+          toast.error(errMessage);
+          setSubmitting(false);
+        },
       }
     );
   };

@@ -6,6 +6,7 @@ import {
   Switch,
   BrowserRouter as Router,
 } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import NavBar from "./Components/NavBar";
 import Login from "./Pages/Login";
@@ -47,6 +48,7 @@ const AppRoutes = () => {
 function App() {
   return (
     <Router>
+      <ToastContainer position="bottom-right" />
       <NavBar />
       <AppRoutes />
     </Router>
