@@ -14,6 +14,7 @@ import HomePage from "./Pages/HomePage";
 import SignupPage from "./Pages/SignupPage";
 import AddPlacePage from "./Pages/AddPlacePage";
 import PlaceDetail from "./Pages/PlaceDetailPage";
+import EditPlace from "./Pages/PlaceEditPage";
 
 const UnauthenticatedRoutes = ({ children: Children, ...rest }) => {
   const { isAuth } = useSelector((state) => state.user);
@@ -40,6 +41,9 @@ const AppRoutes = () => {
     <Switch>
       <AuthenticatedRoute path="/" exact>
         {HomePage}
+      </AuthenticatedRoute>
+      <AuthenticatedRoute path="/place/edit/:id">
+        {EditPlace}
       </AuthenticatedRoute>
       <AuthenticatedRoute path="/add">{AddPlacePage}</AuthenticatedRoute>
       <AuthenticatedRoute path="/place/:id">{PlaceDetail}</AuthenticatedRoute>

@@ -76,11 +76,13 @@ const PlaceForm = ({ placeData = {}, placeEdit }) => {
       values.img = values.image;
     }
 
-    postMutate(
+    // post or edit
+    const mutate = placeEdit || postMutate;
+
+    mutate(
       {
-        path: "/posts",
+        path: `posts/${placeData.id}`,
         credentials: {
-          ...(placeEdit && { id: placeData.id }),
           title: values.title,
           body: values.body,
           image: values.img,
@@ -91,7 +93,7 @@ const PlaceForm = ({ placeData = {}, placeEdit }) => {
       },
       {
         onSuccess: (data) => {
-          history.push(`place/${data.id}`);
+          history.push(`/place/${data.id}`);
         },
         onError: (error) => {
           const errMessage =
