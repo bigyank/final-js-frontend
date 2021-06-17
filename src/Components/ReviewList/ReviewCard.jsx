@@ -20,6 +20,7 @@ import { red } from "@material-ui/core/colors";
 import DialogBox from "../DialogBox";
 
 import { useDelete } from "../../hooks/useDeleteService";
+import { timeAgo } from "../../utils/humanizetime";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -99,7 +100,7 @@ export default function ReviewCard({
         <CardHeader
           avatar={<Avatar src={"https://thispersondoesnotexist.com/image"} />}
           title={user.full_name}
-          subheader={createdAt}
+          subheader={timeAgo(createdAt)}
         />
         {img && (
           <CardMedia className={classes.media} image={img} alt="user img" />

@@ -17,7 +17,6 @@ const PlaceDetail = () => {
 
   if (isLoading || !data) return <LoadingIndicator />;
 
-  console.log(data);
   return (
     <>
       <PlaceDetailHeader data={data} />
