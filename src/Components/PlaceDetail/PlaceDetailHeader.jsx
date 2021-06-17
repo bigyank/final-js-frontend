@@ -1,8 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import {
   Paper,
@@ -20,6 +18,9 @@ import { useTheme } from "@material-ui/core/styles";
 // import DialogBox from "../DialogBox";
 import AuthorTable from "./AuthorTable";
 import { useSelector } from "react-redux";
+import DialogBox from "../DialogBox";
+import { useDelete } from "../../hooks/useDeleteService";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles({
   paperStyles: {
@@ -38,6 +39,7 @@ const useStyles = makeStyles({
 const PlaceDetailHeader = ({ data }) => {
   const { user } = useSelector((state) => state.user);
   const history = useHistory();
+  const { mutate: mutateDeletePlace } = useDelete("deletePlace");
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
@@ -51,10 +53,26 @@ const PlaceDetailHeader = ({ data }) => {
     setOpen(false);
   };
 
-  // const handleDelete = () => {
-  //   mutateDeletePlace(data.id);
-  //   setOpen(false);
-  // };
+  const handleDelete = () => {
+    mutateDeletePlace(
+      { path: `/posts/${data.id}` },
+      {
+        onSuccess: () => {
+          toast.warn("place deleted");
+          history.push("/");
+        },
+        onError: (error) => {
+          const errMessage =
+            error.response && error.response.data.error
+              ? error.response.data.error.message
+              : error.message;
+
+          toast.error(errMessage);
+        },
+      }
+    );
+    setOpen(false);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -62,13 +80,13 @@ const PlaceDetailHeader = ({ data }) => {
 
   return (
     <Box m={matches ? 4 : 0}>
-      {/* <DialogBox
+      <DialogBox
         open={open}
         handleClose={handleClose}
         handleConfirm={handleDelete}
         headerMessage="Delete this Place?"
         bodyMessage="You will not be able to recover this place. Are you sure about this action?"
-      /> */}
+      />
       <Paper className={classes.paperStyles}>
         <Grid container alignContent="center" spacing={4}>
           <Grid item xs={12} md={6}>
