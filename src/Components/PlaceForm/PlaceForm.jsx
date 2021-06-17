@@ -23,6 +23,7 @@ import { app } from "../../firebase";
 // import { addPlace } from "../../services/place";
 
 import { usePost } from "../../hooks/usePostService";
+import { useHistory } from "react-router-dom";
 
 const validator = yup.object({
   title: yup.string().required(),
@@ -36,6 +37,7 @@ const useStyles = makeStyles({
 });
 
 const PlaceForm = ({ placeData = {}, placeEdit }) => {
+  const history = useHistory();
   const { mutate: postMutate } = usePost("postPlace");
   const [location, setLocation] = useState(
     () => placeData.location || [27.7172, 85.324]
@@ -89,7 +91,7 @@ const PlaceForm = ({ placeData = {}, placeEdit }) => {
       },
       {
         onSuccess: (data) => {
-          console.log(data);
+          history.push(`place/${data.id}`);
         },
         onError: (error) => {
           const errMessage =

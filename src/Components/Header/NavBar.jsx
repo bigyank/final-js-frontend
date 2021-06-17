@@ -53,6 +53,9 @@ const NavBar = ({ toggleDrawer, handleLogout, isAuth }) => {
                 <Button component={Link} to="/" color="inherit">
                   Home
                 </Button>
+                <Button component={Link} to="/add" color="inherit">
+                  Add Place
+                </Button>
                 <Button onClick={handleLogout} color="inherit">
                   Logout
                 </Button>
