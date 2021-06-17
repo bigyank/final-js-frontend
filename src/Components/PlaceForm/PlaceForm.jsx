@@ -81,7 +81,7 @@ const PlaceForm = ({ placeData = {}, placeEdit }) => {
 
     mutate(
       {
-        path: `posts/${placeData.id}`,
+        path: `posts/${placeEdit ? placeData.id : ""}`,
         credentials: {
           title: values.title,
           body: values.body,

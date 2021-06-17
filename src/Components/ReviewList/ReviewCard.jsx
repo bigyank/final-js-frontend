@@ -1,12 +1,13 @@
 import React from "react";
 import { useState } from "react";
+import { useQueryClient } from "react-query";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { useMutation } from "react-query";
 import ReactHtmlParser from "react-html-parser";
 import { toast } from "react-toastify";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { CardActions, IconButton, Typography, Box } from "@material-ui/core";
+import { CardActions, IconButton, Box } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -18,7 +19,7 @@ import { red } from "@material-ui/core/colors";
 
 import DialogBox from "../DialogBox";
 
-import { useSelector } from "react-redux";
+import { useDelete } from "../../hooks/useDeleteService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,26 +44,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ReviewCard({ createdAt, comment, img, user, placeId }) {
+export default function ReviewCard({
+  createdAt,
+  comment,
+  img,
+  user,
+  placeId,
+  commentId,
+}) {
   const history = useHistory();
   const { user: userInfo } = useSelector((state) => state.user);
+  const { mutate: mutateDeleteReview } = useDelete("deleteUser");
+  const queryClient = useQueryClient();
   const classes = useStyles();
 
-  //   const [mutateDeleteReview] = useMutation(deleteReview, {
-  //     onSuccess: () => {
-  //       console.log("deleted success");
-  //     },
-  //     onError: (error) => {
-  //       const errMessage =
-  //         error.response && error.response.data.error
-  //           ? error.response.data.error.message
-  //           : error.message;
-
-  //       toast.error(errMessage);
-  //     },
-  //   });
-
-  const pointToEdit = () => history.push(`/place/${placeId}/edit/review`);
+  const pointToEdit = () =>
+    history.push(`/place/${placeId}/edit/review/${commentId}`);
 
   // for dialog
   const [open, setOpen] = useState(false);
@@ -72,8 +69,23 @@ export default function ReviewCard({ createdAt, comment, img, user, placeId }) {
   };
 
   const handleDelete = () => {
-    //     mutateDeleteReview(placeId);
-    toast.warning("review deleted");
+    mutateDeleteReview(
+      { path: `/comments/${commentId}` },
+      {
+        onSuccess: () => {
+          toast.warn("deleted sucessfully");
+          queryClient.invalidateQueries("postDetail");
+        },
+        onError: (error) => {
+          const errMessage =
+            error.response && error.response.data.error
+              ? error.response.data.error.message
+              : error.message;
+
+          toast.error(errMessage);
+        },
+      }
+    );
     setOpen(false);
   };
 

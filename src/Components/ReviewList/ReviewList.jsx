@@ -11,9 +11,10 @@ const ReviewList = ({ currentReviews, placeId }) => {
         {currentReviews.map((review) => (
           <Box key={review.id} mb={4}>
             <ReviewCard
+              commentId={review.id}
               comment={review.body}
               rating={review.rating}
-              createdAt={timeAgo(review.created_at)}
+              createdAt={review.created_at}
               user={review.user}
               img={review.img}
               placeId={placeId}
