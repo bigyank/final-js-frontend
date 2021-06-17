@@ -4,6 +4,7 @@ import { useGet } from "../hooks/useGetService";
 import PlaceDetailHeader from "../Components/PlaceDetail/PlaceDetailHeader";
 import PlaceDetailMap from "../Components/PlaceDetail/PlaceDetailMap";
 import LoadingIndicator from "../Components/LoadingIndicator";
+import Review from "../Components/ReviewList/Review";
 // import NotFoundPage from "./NotFoundPage";
 
 const PlaceDetail = () => {
@@ -21,6 +22,7 @@ const PlaceDetail = () => {
     <>
       <PlaceDetailHeader data={data} />
       <PlaceDetailMap location={[data.lat, data.lon]} />
+      <Review reviews={data.comments} id={id} />
     </>
   );
 };
