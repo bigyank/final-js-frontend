@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,9 +11,12 @@ import {
   Toolbar,
   Typography,
   Button,
+  Switch,
 } from "@material-ui/core";
 
 import MenuIcon from "@material-ui/icons/Menu";
+import { useDispatch } from "react-redux";
+import { toggle } from "../../redux/theme";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +31,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NavBar = ({ toggleDrawer, handleLogout, isAuth }) => {
+  const dispatch = useDispatch();
+  const theme = localStorage.getItem("theme");
+  const [isToggled, setIsToggled] = useState(() =>
+    theme === "dark" ? true : false
+  );
   const classes = useStyles();
+
+  const handleToggle = () => {
+    setIsToggled((state) => !state);
+    dispatch(toggle());
+  };
 
   return (
     <Box className={classes.root}>
@@ -50,6 +63,12 @@ const NavBar = ({ toggleDrawer, handleLogout, isAuth }) => {
           <Hidden smDown>
             {isAuth ? (
               <>
+                <Switch
+                  checked={isToggled}
+                  onChange={handleToggle}
+                  name="checkedA"
+                  inputProps={{ "aria-label": "secondary checkbox" }}
+                />
                 <Button component={Link} to="/" color="inherit">
                   Home
                 </Button>

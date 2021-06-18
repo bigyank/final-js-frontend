@@ -1,12 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import {
-  Route,
-  Redirect,
-  Switch,
-  BrowserRouter as Router,
-} from "react-router-dom";
+import { Switch, BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { ThemeProvider } from "@material-ui/core";
 
 import Header from "./Components/Header/Header";
 import LoginPage from "./Pages/LoginPage";
@@ -18,25 +13,10 @@ import EditPlace from "./Pages/PlaceEditPage";
 import PlaceReviewPlace from "./Pages/PlaceReviewPage";
 import ExplorePage from "./Pages/ExplorePage";
 
-const UnauthenticatedRoutes = ({ children: Children, ...rest }) => {
-  const { isAuth } = useSelector((state) => state.user);
-  return (
-    <Route
-      {...rest}
-      render={() => (!isAuth ? <Children /> : <Redirect to="/" />)}
-    ></Route>
-  );
-};
+import { AuthenticatedRoute } from "./Routes/PrivateRoute";
+import { UnauthenticatedRoutes } from "./Routes/PublicRoute";
 
-const AuthenticatedRoute = ({ children: Children, ...rest }) => {
-  const { isAuth } = useSelector((state) => state.user);
-  return (
-    <Route
-      {...rest}
-      render={() => (isAuth ? <Children /> : <Redirect to="/login" />)}
-    ></Route>
-  );
-};
+import { useTheme } from "./hooks/useTheme";
 
 const AppRoutes = () => {
   return (
@@ -62,12 +42,15 @@ const AppRoutes = () => {
 };
 
 function App() {
+  const theme = useTheme();
   return (
-    <Router>
-      <ToastContainer position="bottom-right" />
-      <Header />
-      <AppRoutes />
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <ToastContainer position="bottom-right" />
+        <Header />
+        <AppRoutes />
+      </Router>
+    </ThemeProvider>
   );
 }
 

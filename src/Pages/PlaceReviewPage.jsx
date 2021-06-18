@@ -55,12 +55,15 @@ function PlaceReviewPlace() {
               />
             </Grid>
             <Grid item>
-              <Typography variant={matches ? "h5" : "h6"}>
+              <Typography variant={matches ? "h5" : "h6"} color="secondary">
                 {data.title}
               </Typography>
               <Typography variant="body1" color="textSecondary">
                 {data.type}
               </Typography>
+              <Box mt={2}>
+                <Typography color="textSecondary">{data.body}</Typography>
+              </Box>
             </Grid>
           </Grid>
           <Box m={2}>
