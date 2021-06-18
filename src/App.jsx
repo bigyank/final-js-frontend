@@ -17,6 +17,7 @@ import { AuthenticatedRoute } from "./Routes/PrivateRoute";
 import { UnauthenticatedRoutes } from "./Routes/PublicRoute";
 
 import { useTheme } from "./hooks/useTheme";
+import fo0foPage from "./Pages/404page";
 
 const AppRoutes = () => {
   return (
@@ -37,6 +38,7 @@ const AppRoutes = () => {
       </AuthenticatedRoute>
       <UnauthenticatedRoutes path="/login">{LoginPage}</UnauthenticatedRoutes>
       <UnauthenticatedRoutes path="/signup">{SignupPage}</UnauthenticatedRoutes>
+      <AuthenticatedRoute path="*">{fo0foPage}</AuthenticatedRoute>
     </Switch>
   );
 };
