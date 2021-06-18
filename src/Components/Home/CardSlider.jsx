@@ -9,8 +9,10 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
+import Rating from "@material-ui/lab/Rating";
 import { Box, CardActionArea } from "@material-ui/core";
 import { red } from "@material-ui/core/colors";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,7 +60,15 @@ const CardSlider = ({ editorData }) => {
               <CardHeader title={data.title} subheader={data.type} />
               <CardMedia className={classes.media} image={data.image} />
             </CardActionArea>
-            <CardContent>{data.body.slice(0, 10)}</CardContent>
+            <CardContent>
+              <Rating
+                className={classes.icon}
+                name="read-only"
+                value={Math.floor(Math.random() * (5 - 1 + 1)) + 1}
+                readOnly
+                icon={<FavoriteIcon fontSize="inherit" />}
+              />
+            </CardContent>
           </Card>
         </Box>
       ))}

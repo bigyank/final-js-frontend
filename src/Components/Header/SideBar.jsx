@@ -36,6 +36,8 @@ export default function SideBar({ toggleDrawer, state, handleLogout, isAuth }) {
         {isAuth ? (
           <>
             <SideBarList Icon={HomeIcon} text="Home" lnk="/" />
+            <SideBarList Icon={HomeIcon} text="Explore" lnk="/explore" />
+            <SideBarList Icon={HomeIcon} text="Add" lnk="/add" />
             <Divider />
             <SideBarList
               Icon={ExitToAppIcon}
