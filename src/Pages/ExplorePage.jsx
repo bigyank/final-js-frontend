@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 
 import ExploreIcon from "@material-ui/icons/Explore";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
 
 import Map from "../Components/Map";
 import LoadingIndicator from "../Components/LoadingIndicator";
@@ -52,7 +50,7 @@ const ExplorePage = () => {
   return (
     <>
       <Map data={places} />
-      {/* <BottomNavigation
+      <BottomNavigation
         value={value}
         onChange={handleChange}
         className={classes.stickToBottom}
@@ -63,21 +61,16 @@ const ExplorePage = () => {
           icon={<ExploreIcon />}
         />
         <BottomNavigationAction
-          label="Landmark"
-          value="landmark"
+          label="Indoors"
+          value="Indoors"
           icon={<AccountBalanceIcon />}
         />
         <BottomNavigationAction
-          label="Shopping"
-          value="shopping"
+          label="Outdoors"
+          value="Outdoors"
           icon={<ShoppingCartIcon />}
         />
-        <BottomNavigationAction
-          label="Religious"
-          value="religious"
-          icon={<AllInclusiveIcon />}
-        />
-      </BottomNavigation> */}
+      </BottomNavigation>
     </>
   );
 };
